@@ -1375,3 +1375,84 @@ plt.xticks(
 )
 
 plt.show()
+
+# Step 30: Employee Age Analysis
+
+# 30.1 Calculate Employee Age
+
+current_date = pd.Timestamp.today()
+
+hr_data["age"] = (
+    (
+        current_date
+        - hr_data["date_of_birth"]
+    ).dt.days / 365.25
+)
+
+
+# Convert Age into Years
+
+hr_data["age"] = (
+    hr_data["age"]
+    .round()
+    .astype("Int64")
+)
+
+hr_data[
+    [
+        "employee_id",
+        "employee_name",
+        "date_of_birth",
+        "age"
+    ]
+].head()
+
+
+# 30.2 Average Employee Age
+
+average_age = (
+    hr_data["age"]
+    .mean()
+)
+
+average_age
+
+
+# 30.3 Minimum Employee Age
+
+minimum_age = (
+    hr_data["age"]
+    .min()
+)
+
+minimum_age
+
+
+# 30.4 Maximum Employee Age
+
+maximum_age = (
+    hr_data["age"]
+    .max()
+)
+
+maximum_age
+
+
+# 30.5 Age Distribution
+
+plt.figure(figsize=(10, 6))
+
+sns.histplot(
+    data=hr_data,
+    x="age",
+    kde=True
+)
+
+plt.title(
+    "Employee Age Distribution"
+)
+
+plt.xlabel("Age")
+plt.ylabel("Employee Count")
+
+plt.show()
